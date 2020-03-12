@@ -1,0 +1,29 @@
+{
+  "name": "adts-and-objects-examples",
+  "version": "1.0.0",
+  "description": "Example code from my blog post \"Abstract data types and objects\" at https://jnkr.tech",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosephJNK/examples.git"
+  },
+  "author": "Joseph Junker",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/JosephJNK/examples/issues"
+  },
+  "private": true,
+  "homepage": "https://jnkr.tech//blog/abstract-data-types-and-objects",
+  "engines": {
+    "node": "13.5.0",
+    "npm": "6.13.4"
+  },
+  "devDependencies": {
+    "fast-check": "^1.23.0",
+    "mocha": "^7.1.0",
+    "typescript": "^3.8.3"
+  }
+}
