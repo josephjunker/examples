@@ -1,3 +1,4 @@
+// begin-snippet: concrete-implementation
 type NumberSet = Array<number>;
 
 export function empty(): NumberSet {
@@ -63,3 +64,10 @@ export function union(set1: NumberSet, set2: NumberSet): NumberSet {
 
   return newSet;
 }
+// end-snippet
+
+// begin-snippet: size
+export function size(set: NumberSet): number {
+  return set.length;
+}
+// end-snippet
