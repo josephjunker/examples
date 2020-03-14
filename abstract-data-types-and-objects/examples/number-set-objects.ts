@@ -49,20 +49,20 @@ export class Insert implements NumberSetI {
 
 // begin-snippet: union
 export class Union implements NumberSetI {
-  set1: NumberSetI;
-  set2: NumberSetI;
-  constructor(set1: NumberSetI, set2: NumberSetI) {
-    this.set1 = set1;
-    this.set2 = set2;
+  left: NumberSetI;
+  right: NumberSetI;
+  constructor(left: NumberSetI, right: NumberSetI) {
+    this.left = left;
+    this.right = right;
   }
   add(n: number): NumberSetI {
     return new Insert(n, this);
   }
   isEmpty() {
-    return this.set1.isEmpty() && this.set2.isEmpty();
+    return this.left.isEmpty() && this.right.isEmpty();
   }
   has(n: number) {
-    return this.set1.has(n) || this.set2.has(n);
+    return this.left.has(n) || this.right.has(n);
   }
   union(set: NumberSetI): NumberSetI {
     return new Union(this, set);

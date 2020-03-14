@@ -4,7 +4,7 @@
   "description": "Example code from my blog post \"Abstract data types and objects\" at https://jnkr.tech",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc && mocha"
   },
   "repository": {
     "type": "git",

@@ -53,7 +53,7 @@ export default class NumberSet {
         break;
       }
 
-      if (i === this.contents.length) {
+      if (j === this.contents.length) {
         newSet = newSet.concat(other.contents.slice(i));
         break;
       }
