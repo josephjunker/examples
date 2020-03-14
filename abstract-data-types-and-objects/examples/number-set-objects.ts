@@ -9,7 +9,7 @@ export interface NumberSetI {
 
 // begin-snippet: empty
 export class Empty implements NumberSetI {
-  add(n: number) {
+  add(n: number): NumberSetI {
     return new Insert(n, this);
   }
   isEmpty() {
@@ -18,21 +18,21 @@ export class Empty implements NumberSetI {
   has(n: number) {
     return false;
   }
-  union(set: NumberSetI) {
+  union(set: NumberSetI): NumberSetI {
     return set;
   }
 }
 // end-snippet
 
 // begin-snippet: insert
-class Insert implements NumberSetI {
+export class Insert implements NumberSetI {
   n: number;
   set: NumberSetI;
   constructor(n: number, set: NumberSetI) {
     this.n = n;
     this.set = set;
   }
-  add(n: number) {
+  add(n: number): NumberSetI {
     return new Insert(n, this);
   }
   isEmpty() {
@@ -41,21 +41,21 @@ class Insert implements NumberSetI {
   has(n: number) {
     return n === this.n || this.set.has(n);
   }
-  union(set: NumberSetI) {
+  union(set: NumberSetI): NumberSetI {
     return new Union(this, set);
   }
 }
 // end-snippet
 
 // begin-snippet: union
-class Union implements NumberSetI {
+export class Union implements NumberSetI {
   set1: NumberSetI;
   set2: NumberSetI;
   constructor(set1: NumberSetI, set2: NumberSetI) {
     this.set1 = set1;
     this.set2 = set2;
   }
-  add(n: number) {
+  add(n: number): NumberSetI {
     return new Insert(n, this);
   }
   isEmpty() {
@@ -64,7 +64,7 @@ class Union implements NumberSetI {
   has(n: number) {
     return this.set1.has(n) || this.set2.has(n);
   }
-  union(set: NumberSetI) {
+  union(set: NumberSetI): NumberSetI {
     return new Union(this, set);
   }
 }
@@ -72,7 +72,7 @@ class Union implements NumberSetI {
 
 // begin-snippet: infinite
 export class Everything implements NumberSetI {
-  add(n: number) {
+  add(n: number): NumberSetI {
     return this;
   }
   isEmpty() {
@@ -81,13 +81,13 @@ export class Everything implements NumberSetI {
   has(n: number) {
     return true;
   }
-  union(set: NumberSetI) {
+  union(set: NumberSetI): NumberSetI {
     return this;
   }
 }
 
 export class Even implements NumberSetI {
-  add(n: number) {
+  add(n: number): NumberSetI {
     return new Insert(n, this);
   }
   isEmpty() {
@@ -96,7 +96,7 @@ export class Even implements NumberSetI {
   has(n: number) {
     return n % 2 === 0;
   }
-  union(set: NumberSetI) {
+  union(set: NumberSetI): NumberSetI {
     return new Union(this, set);
   }
 }

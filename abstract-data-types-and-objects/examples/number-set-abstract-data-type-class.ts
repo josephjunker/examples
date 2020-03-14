@@ -19,7 +19,7 @@ export default class NumberSet {
       i++;
     }
 
-    if (this[i] === n) return this;
+    if (this.contents[i] === n) return this;
 
     return this.fromArray(
       this.contents
@@ -74,5 +74,4 @@ export default class NumberSet {
     return this.fromArray(newSet);
   }
 }
-
 // end-snippet
