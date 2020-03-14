@@ -32,7 +32,10 @@ export function has(n: number, set: NumberSet): boolean {
   return false;
 }
 
-export function union(set1: NumberSet, set2: NumberSet): NumberSet {
+export function union(
+  set1: NumberSet,
+  set2: NumberSet
+): NumberSet {
   let newSet = [];
 
   let i = 0,
@@ -69,5 +72,18 @@ export function union(set1: NumberSet, set2: NumberSet): NumberSet {
 // begin-snippet: size
 export function size(set: NumberSet): number {
   return set.length;
+}
+// end-snippet
+
+// begin-snippet: smallest-integer-above
+function smallestIntegerAbove(
+  n: number,
+  set: NumberSet
+): number | null {
+  for (const num of set) {
+    if (num > n) return num;
+  }
+
+  return null;
 }
 // end-snippet
