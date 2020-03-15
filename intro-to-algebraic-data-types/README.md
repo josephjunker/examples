@@ -1,1 +1,1 @@
-Example code for my blog post "[Abstract Data Types and Objects](https://jnkr.tech/blog/abstract-data-types-and-objects)"
+Example code for my blog post "[An Introduction To Algebraic Data Types](https://jnkr.tech/blog/introduction-to-algebraic-data-types)"
