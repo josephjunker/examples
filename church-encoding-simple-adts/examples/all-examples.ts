@@ -38,14 +38,20 @@ function churchEncodeBoolean(bool: ADTBoolean): ChurchBoolean {
 const tru: ChurchBoolean = ({ tru, fals }) => tru;
 const fals: ChurchBoolean = ({ tru, fals }) => fals;
 
-function churchAnd(left: ChurchBoolean, right: ChurchBoolean): ChurchBoolean {
+function churchAnd(
+    left: ChurchBoolean,
+    right: ChurchBoolean): ChurchBoolean {
+
     return left({
         tru: right,
         fals
     })
 }
 
-function churchOr(left: ChurchBoolean, right: ChurchBoolean): ChurchBoolean {
+function churchOr(
+    left: ChurchBoolean,
+    right: ChurchBoolean): ChurchBoolean {
+
     return left({
       tru,
       fals: right
@@ -126,7 +132,8 @@ const twenty = fourFiveAdt.first * fourFiveAdt.second;
 const twentyAgain = fourFiveChurch((first, second) => first * second);
 
 const fortyFive = `${fourFiveAdt.first}{fourFiveAdt.second}`;
-const fortyFiveAgain = fourFiveChurch((first, second) => `${first}${second}`);
+const fortyFiveAgain = fourFiveChurch(
+    (first, second) => `${first}${second}`);
 // end-snippet
 
 // begin-snippet: church-tuple-decode
