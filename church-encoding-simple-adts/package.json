@@ -1,0 +1,27 @@
+{
+  "name": "church-encodings-of-simple-adts-examples",
+  "version": "1.0.0",
+  "description": "Example code from my blog post \"An Introduction to Algebraic Data Types\" at https://jnkr.tech",
+  "main": "index.js",
+  "scripts": {
+    "test": "$(npm bin)/tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosephJNK/examples.git"
+  },
+  "author": "Joseph Junker",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/JosephJNK/examples/issues"
+  },
+  "private": true,
+  "homepage": "https://jnkr.tech/blog/church-encodings-of-simple-adts",
+  "engines": {
+    "node": "13.5.0",
+    "npm": "6.13.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}
