@@ -260,3 +260,6 @@ const fiftyThousandOnes = take(infiniteOnes, 50000);
 assert_1.strict.equal(scottSumIterative(fiftyThousandOnes), 50000);
 // Show that concatenating ScottLists won't cause the stack to overflow
 assert_1.strict.equal(scottSumIterative(scottConcat(fiftyThousandOnes, fiftyThousandOnes)), 100000);
+// Show that our fold functions on ScottList are stack safe
+assert_1.strict.equal(foldrScottList(fiftyThousandOnes, (x, y) => x + y, 0), 50000);
+assert_1.strict.equal(foldlScottList(fiftyThousandOnes, 0, (x, y) => x + y), 50000);
