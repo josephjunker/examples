@@ -340,7 +340,7 @@ assert.deepEqual(scottDecode(scottEncode(oneTwoThree)), oneTwoThree);
 assert.equal(scottSum(scottEncode(scottDecode(sevenEightNine))), 24);
 
 
-// Show that `scottSumIterative` won't blow the stack on large lists
+// Check stack safety of some operations
 
 function take<A>(list: ScottList<A>, count: number): ScottList<A> {
     return function taking<B>({ cons, nil }: ScottListArgs<A, B>): B {
@@ -356,5 +356,13 @@ function take<A>(list: ScottList<A>, count: number): ScottList<A> {
     } 
 }
 
+
+const infiniteOnes = count(1, 0);
+const fiftyThousandOnes = take(infiniteOnes, 50000);
+ 
 // If I change `scottSumIterative` to `scottSum` here, the stack overflows
-assert.equal(scottSumIterative(take(count(1, 0), 20000)), 20000)
+assert.equal(scottSumIterative(fiftyThousandOnes), 50000);
+    
+    
+// Show that concatenating ScottLists won't cause the stack to overflow
+assert.equal(scottSumIterative(scottConcat(fiftyThousandOnes, fiftyThousandOnes)), 100000);

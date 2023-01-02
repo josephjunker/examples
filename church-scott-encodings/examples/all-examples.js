@@ -240,7 +240,7 @@ function scottDecode(list) {
 // end-snippet
 assert_1.strict.deepEqual(scottDecode(scottEncode(oneTwoThree)), oneTwoThree);
 assert_1.strict.equal(scottSum(scottEncode(scottDecode(sevenEightNine))), 24);
-// Show that `scottSumIterative` won't blow the stack on large lists
+// Check stack safety of some operations
 function take(list, count) {
     return function taking({ cons, nil }) {
         return list({
@@ -254,4 +254,9 @@ function take(list, count) {
         });
     };
 }
-assert_1.strict.equal(scottSumIterative(take(count(1, 0), 20000)), 20000);
+const infiniteOnes = count(1, 0);
+const fiftyThousandOnes = take(infiniteOnes, 50000);
+// If I change `scottSumIterative` to `scottSum` here, the stack overflows
+assert_1.strict.equal(scottSumIterative(fiftyThousandOnes), 50000);
+// Show that concatenating ScottLists won't cause the stack to overflow
+assert_1.strict.equal(scottSumIterative(scottConcat(fiftyThousandOnes, fiftyThousandOnes)), 100000);
