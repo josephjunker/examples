@@ -59,7 +59,7 @@ type ChurchListArgs<A, B> = {
 };
 
 const churchNil: ChurchList<never> =
-    <B extends unknown>({ nil }: ChurchListArgs<never, B>): B => nil();
+    <B>({ nil }: ChurchListArgs<never, B>): B => nil();
 
 function churchCons<A>(head: A, tail: ChurchList<A>): ChurchList<A> {
     return function encodedCons<B>({ cons, nil }: ChurchListArgs<A, B>): B {
@@ -165,7 +165,7 @@ type ScottListArgs<A, B> = {
 };
 
 const scottNil: ScottList<never> =
-    <B extends unknown>({ nil }: ScottListArgs<never, B>): B => nil();
+    <B>({ nil }: ScottListArgs<never, B>): B => nil();
 
 function scottCons<A>(head: A, tail: ScottList<A>): ScottList<A> {
     return function<B>({ cons }: ScottListArgs<A, B>): B {
