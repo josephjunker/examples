@@ -78,7 +78,8 @@ const containsEmpty = strTree.acceptExternal<boolean>({
 // Alternatively, for those who prefer to avoid using `this`:
 const detectEmpty: ExternalTreeVisitor<string, boolean> = {
     visitNode: (left, right) =>
-        left.acceptExternal(detectEmpty) || right.acceptExternal(detectEmpty),
+        left.acceptExternal(detectEmpty) ||
+        right.acceptExternal(detectEmpty),
     visitLeaf: x => x === ""
 };
 
