@@ -4,11 +4,11 @@ import { strict as assert } from "assert";
 interface Tree<T> {};
 
 class Node<T> implements Tree<T> {
-    #left: Tree<T> | undefined;
-    #right: Tree<T> | undefined;
-    public constructor(left: Tree<T> | undefined, right: Tree<T> | undefined) {
-    	this.#left = left;
-	this.#right = right;
+    #left: Tree<T>;
+    #right: Tree<T>;
+    public constructor(left: Tree<T>, right: Tree<T>) {
+        this.#left = left;
+        this.#right = right;
     }
 }
 

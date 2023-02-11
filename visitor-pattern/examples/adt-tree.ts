@@ -24,15 +24,15 @@ function sumTree(tree: ADTTree<number>): number {
 function node<T>(left: ADTTree<T>, right: ADTTree<T>): ADTTree<T> {
     return {
         tag: "ADTNode",
-	left,
-	right
+        left,
+        right
     };
 }
 
 function leaf<T>(value: T): ADTTree<T> {
     return {
-	tag: "ADTLeaf",
-	value
+        tag: "ADTLeaf",
+        value
     };
 }
 

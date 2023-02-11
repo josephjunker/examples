@@ -19,7 +19,7 @@ class Node<T> implements Tree<T> {
     #left: Tree<T>;
     #right: Tree<T>;
     public constructor(left: Tree<T>, right: Tree<T>) {
-    	this.#left = left;
+        this.#left = left;
         this.#right = right;
     }
 
@@ -31,8 +31,8 @@ class Node<T> implements Tree<T> {
 
     public acceptExternal<S>(visitor: ExternalTreeVisitor<T, S>): S {
         return visitor.visitNode(
-	    this.#left,
-	    this.#right);
+        this.#left,
+        this.#right);
     }
 }
 
@@ -55,7 +55,7 @@ const numTree = new Node(
     new Leaf(1),
     new Node(
         new Leaf(2),
-	new Leaf(3)));
+        new Leaf(3)));
 
 const strTree = new Node(
    new Leaf(""),
@@ -69,14 +69,17 @@ const sum = numTree.accept<number>({
 });
 
 const containsEmpty = strTree.acceptExternal<boolean>({
-    visitNode: function(left, right){ return left.acceptExternal(this) || right.acceptExternal(this) },
+    visitNode: function(left, right) {
+        return left.acceptExternal(this) || right.acceptExternal(this)
+    },
     visitLeaf: x => x === ""
 });
 
 // Alternatively, for those who prefer to avoid using `this`:
 const detectEmpty: ExternalTreeVisitor<string, boolean> = {
-  visitNode: (left, right) => left.acceptExternal(detectEmpty) || right.acceptExternal(detectEmpty),
-  visitLeaf: x => x === ""
+    visitNode: (left, right) =>
+        left.acceptExternal(detectEmpty) || right.acceptExternal(detectEmpty),
+    visitLeaf: x => x === ""
 };
 
 const containsEmpty2 = strTree.acceptExternal(detectEmpty)
@@ -91,7 +94,9 @@ const strTree2 = new Node(
    new Leaf("asdf"));
 
 const containsEmpty3 = strTree2.acceptExternal<boolean>({
-    visitNode: function(left, right){ return left.acceptExternal(this) || right.acceptExternal(this); },
+    visitNode: function(left, right) {
+        return left.acceptExternal(this) || right.acceptExternal(this);
+    },
     visitLeaf: x => x === ""
 });
 

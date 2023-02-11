@@ -3,10 +3,14 @@ import { strict as assert } from "assert";
 // begin-snippet: type-definitions
 interface Tree<TContents> {
     // Previously "accept"
-    reduce: <TResult>({ node, leaf }: TreeReduceArgs<TContents, TResult>) => TResult
+    reduce: <TResult>(
+        { node, leaf }: TreeReduceArgs<TContents, TResult>
+    ) => TResult
 
     // Previously "acceptExternal"
-    match: <TResult>({ node, leaf }: TreeMatchArgs<TContents, TResult>) => TResult,
+    match: <TResult>(
+        { node, leaf }: TreeMatchArgs<TContents, TResult>
+    ) => TResult,
 }
 
 interface TreeReduceArgs<TContents, TResult> {
@@ -72,7 +76,9 @@ const sum = numTree.reduce<number>({
 });
 
 const isEmpty = strTree.match<boolean>({
-    node: function(left, right) { return left.match(this) || right.match(this); },
+    node: function(left, right) {
+        return left.match(this) || right.match(this);
+    },
     leaf: x => x === ""
 });
 // end-snippet
@@ -85,7 +91,9 @@ const strTree2 = new Node(
    new Leaf("asdf"));
 
 assert.equal(strTree2.match<boolean>({
-    node: function(left, right) { return left.match(this) || right.match(this) },
+    node: function(left, right) {
+        return left.match(this) || right.match(this);
+    },
     leaf: x => x === ""
 }), false);
 
@@ -108,7 +116,9 @@ function totalReduce(tree: Tree<number>): number {
 
 function totalMatch(tree: Tree<number>): number {
     return tree.match<number>({
-        node: function(left, right) { return left.match(this) + right.match(this); },
+        node: function(left, right) {
+            return left.match(this) + right.match(this);
+        },
         leaf: x => x
     });
 }
@@ -132,7 +142,9 @@ function checkHasEmptyReduce(tree: Tree<string>): boolean {
 
 function checkHasEmptyMatch(tree: Tree<string>): boolean {
     return tree.match<boolean>({
-        node: function (left, right) { return left.match(this) || right.match(this); },
+        node: function (left, right) {
+            return left.match(this) || right.match(this);
+        },
         leaf: x => x === ""
     });
 }
@@ -152,7 +164,9 @@ class FillTree<TContents> implements Tree<TContents> {
         this.#depth = depth;
     }
 
-    public match<TResult>(options: TreeMatchArgs<TContents, TResult>): TResult {
+    public match<TResult>(
+        options: TreeMatchArgs<TContents, TResult>): TResult {
+
         if (this.#depth === 0) {
             return options.leaf(this.#value);
         }
@@ -162,13 +176,17 @@ class FillTree<TContents> implements Tree<TContents> {
             new FillTree(this.#value, this.#depth - 1))
     }
 
-    public reduce<TResult>(options: TreeReduceArgs<TContents, TResult>): TResult {
+    public reduce<TResult>(
+        options: TreeReduceArgs<TContents, TResult>): TResult {
+
         const value = this.#value;
 
         function recursive(depth: number): TResult {
             return depth === 0 ?
                 options.leaf(value) :
-                options.node(recursive(depth - 1), recursive(depth - 1));
+                options.node(
+                    recursive(depth - 1),
+                    recursive(depth - 1));
         }
 
         return recursive(this.#depth);

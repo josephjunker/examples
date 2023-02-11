@@ -14,8 +14,8 @@ class Node<T> implements Tree<T> {
     #left: Tree<T>;
     #right: Tree<T>;
     public constructor(left: Tree<T>, right: Tree<T>) {
-    	this.#left = left;
-	    this.#right = right;
+        this.#left = left;
+        this.#right = right;
     }
 
     public acceptExternal<S>(visitor: ExternalVisitor<T, S>): S {
