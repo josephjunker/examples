@@ -62,7 +62,7 @@ const strTree = new Node(
    new Leaf("asdf"));
 
 
-// begin-snippet inline-objects
+// begin-snippet: inline-objects
 const sum = numTree.accept<number>({
     visitNode: (x, y) => x + y,
     visitLeaf: x => x

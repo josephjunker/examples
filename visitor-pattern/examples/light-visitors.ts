@@ -1,6 +1,6 @@
 import { strict as assert } from "assert";
 
-// begin-snippet type-definitions
+// begin-snippet: type-definitions
 interface Tree<TContents> {
     // Previously "accept"
     reduce: <TResult>({ node, leaf }: TreeReduceArgs<TContents, TResult>) => TResult
@@ -65,7 +65,7 @@ const strTree = new Node(
    new Leaf(""),
    new Leaf("asdf"));
 
-// begin-snippet reduce-match
+// begin-snippet: reduce-match
 const sum = numTree.reduce<number>({
     node: (x, y) => x + y,
     leaf: x => x
@@ -89,7 +89,7 @@ assert.equal(strTree2.match<boolean>({
     leaf: x => x === ""
 }), false);
 
-// begin-snippet fill-tree-naieve
+// begin-snippet: fill-tree-naieve
 function fillTree<T>(value: T, depth: number): Tree<T> {
     return depth === 0 ?
         new Leaf(value) :
@@ -142,7 +142,7 @@ assert.equal(checkHasEmptyReduce(fillTree("", 2)), true);
 assert.equal(checkHasEmptyMatch(fillTree("a", 1)), false);
 assert.equal(checkHasEmptyMatch(fillTree("a", 2)), false);
 
-// begin-snippet fill-tree-class
+// begin-snippet: fill-tree-class
 class FillTree<TContents> implements Tree<TContents> {
     readonly #value: TContents;
     readonly #depth: number;

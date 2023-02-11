@@ -1,6 +1,6 @@
 import { strict as assert } from "assert";
 
-// begin-snippet external-visitor
+// begin-snippet: external-visitor
 interface ExternalVisitor<TContents, TResult> {
     visitNode(left: Tree<TContents>, right: Tree<TContents>): TResult;
     visitLeaf(value: TContents): TResult;

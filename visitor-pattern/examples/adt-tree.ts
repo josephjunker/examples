@@ -1,6 +1,6 @@
 import { strict as assert } from "assert";
 
-// begin-snippet adt-tree-sum
+// begin-snippet: adt-tree-sum
 type ADTTree<T> = ADTNode<T> | ADTLeaf<T>;
 type ADTNode<T> = {
     tag: "ADTNode",

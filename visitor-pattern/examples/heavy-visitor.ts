@@ -1,19 +1,19 @@
 import { strict as assert } from "assert";
 
-// begin-snippet heavy-visitor-interface-1
+// begin-snippet: heavy-visitor-interface-1
 interface TreeVisitor<TContents, TResult> {
     visitNode(left: TResult, right: TResult): TResult;
     visitLeaf(value: TContents): TResult;
 }
 // end-snippet
 
-// begin-snippet visitorified-tree-1
+// begin-snippet: visitorified-tree-1
 interface Tree<T> {
     accept<S>(visitor: TreeVisitor<T, S>): S;
 }
 // end-snippet
 
-// begin-snippet node-leaf-classes-1
+// begin-snippet: node-leaf-classes-1
 class Node<T> implements Tree<T> {
     #left: Tree<T>;
     #right: Tree<T>;
@@ -41,7 +41,7 @@ class Leaf<T> implements Tree<T> {
 }
 // end-snippet
 
-// begin-snippet sum-tree-1
+// begin-snippet: sum-tree-1
 class SumTree implements TreeVisitor<number, number> {
     visitNode(left: number, right: number): number {
         return left + right;
@@ -52,7 +52,7 @@ class SumTree implements TreeVisitor<number, number> {
 }
 // end-snippet
 
-// begin-snippet detect-empty
+// begin-snippet: detect-empty
 class DetectEmpty implements TreeVisitor<string, boolean> {
     visitNode(left: boolean, right: boolean): boolean {
         return left || right;
@@ -63,7 +63,7 @@ class DetectEmpty implements TreeVisitor<string, boolean> {
 }
 // end-snippet
 
-// begin-snippet construct-trees
+// begin-snippet: construct-trees
 const numTree = new Node(
     new Leaf(1),
     new Node(

@@ -1,6 +1,6 @@
 import { strict as assert } from "assert";
 
-// begin-snipped bad-tree
+// begin-snippet: bad-tree
 interface Tree<T> {};
 
 class Node<T> implements Tree<T> {
