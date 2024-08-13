@@ -26,17 +26,11 @@ const evaluatableAdditionFactory = {
 }
 // end-snippet
 
-// begin-snippet: compose-factories
-function compose<F1 extends Record<string,unknown>,
-                 F2 extends Record<string, unknown>>(left: F1, right: F2): F1 & F2 {
-                   return Object.assign({}, left, right);
-                 }
-// end-snippet
 
 // begin-snippet: do-composition
 type ExpressionAlgebra2<E> = ConstantAlgebra2<E> & AdditionAlgebra2<E>;
 
-const evaluatableExpressionFactory = compose(
+const evaluatableExpressionFactory = Object.assign({},
     evaluatableConstantFactory,
     evaluatableAdditionFactory);
 // end-snippet
