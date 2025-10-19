@@ -82,28 +82,28 @@ test_sumTreeIterative("nested", () => assert.equal(sumTreeIterative(orderedTree)
 
 test_sumTreeIterative.run();
 
-// begin-snippet: sumTreeC
-function sumTreeC<K>(tree: BinaryTree<number> | null, k: (n: number) => K): K {
+// begin-snippet: sumTreeCPS
+function sumTreeCPS<K>(tree: BinaryTree<number> | null, k: (n: number) => K): K {
     if (!tree) return k(0);
     
-    return sumTreeC(tree.left, (leftSum) =>
-        sumTreeC(tree.right, (rightSum) =>
+    return sumTreeCPS(tree.left, (leftSum) =>
+        sumTreeCPS(tree.right, (rightSum) =>
             k(leftSum + tree.contents + rightSum)));
 }
 // end-snippet
 
-const test_sumTreeC = suite("sumTreeC");
+const test_sumTreeCPS = suite("sumTreeCPS");
 
-test_sumTreeC("null", () => assert.equal(sumTreeC(null, x => x), 0));
-test_sumTreeC("1", () => assert.equal(sumTreeC(leaf(1), x => x), 1));
-test_sumTreeC("nested", () => assert.equal(sumTreeC(orderedTree, x => x), 28));
+test_sumTreeCPS("null", () => assert.equal(sumTreeCPS(null, x => x), 0));
+test_sumTreeCPS("1", () => assert.equal(sumTreeCPS(leaf(1), x => x), 1));
+test_sumTreeCPS("nested", () => assert.equal(sumTreeCPS(orderedTree, x => x), 28));
 
-test_sumTreeC.run();
+test_sumTreeCPS.run();
 
 const someTree = null;
 
-// begin-snippet: sumTreeC-usage
-const sum = sumTreeC(someTree, x => x); // sum has type `number`
+// begin-snippet: sumTreeCPS-usage
+const sum = sumTreeCPS(someTree, x => x); // sum has type `number`
 // end-snippet
 
 const binaryTreeArb = fc.letrec((tie) => ({
@@ -120,7 +120,7 @@ test_basicSums("Equality", () => {
     fc.assert(
         fc.property(binaryTreeArb, tree => {
             assert.equal(sumTree(tree), sumTreeIterative(tree));
-            assert.equal(sumTree(tree), sumTreeC(tree, x => x));
+            assert.equal(sumTree(tree), sumTreeCPS(tree, x => x));
         }), { numRuns: 500 }
     )
 })

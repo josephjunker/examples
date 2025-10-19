@@ -112,7 +112,7 @@ export function flattenTreePostCPS<T, K>(
     k: ((result: LinkedList<T>) => K)): K {
 
     function inner(
-        tree:BinaryTree<T> | null,
+        tree: BinaryTree<T> | null,
         acc0: LinkedList<T>,
         k: (res: LinkedList<T>) => K): K {
 
