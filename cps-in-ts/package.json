@@ -1,0 +1,25 @@
+{
+  "name": "continuation-passing-style",
+  "version": "1.0.0",
+  "description": "Code examples for the blog post \"Continuation-Passing Stype in TypeScript\" at jnkr.tech",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc && node ./examples/all-examples.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosephJNK/examples.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JosephJNK/examples/issues"
+  },
+  "homepage": "https://jnkr.tech/blog/cps-in-ts",
+  "author": "Joseph Junker",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "fast-check": "^4.3.0",
+    "typescript": "^5.9.3",
+    "uvu": "^0.5.6"
+  }
+}
