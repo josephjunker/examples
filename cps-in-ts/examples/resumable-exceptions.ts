@@ -44,21 +44,21 @@ function sumTreeCPS1337<K>(tree: BinaryTree<number>, kOuter: (n: number) => K): 
         if (!tree) return k(0);
         if (tree.contents === 42) return exit(1000);
 
-		// If this node contains 25565 then we want to re-bind the point
-		// in the call stack that "throw1337" points to. Make a new throw 
-		// function which, when called, exits directly to this subtree's
-		// continuation with a constant value.
-		const exceptions: Exceptions = {
-			exit,
-			throw1337: tree.contents === 25565 ?
+        // If this node contains 25565 then we want to re-bind the point
+        // in the call stack that "throw1337" points to. Make a new throw 
+        // function which, when called, exits directly to this subtree's
+        // continuation with a constant value.
+        const exceptions: Exceptions = {
+            exit,
+            throw1337: tree.contents === 25565 ?
                 (resume) => k(1337) :
                 throw1337
-		}
+        }
 
         const next: () => K =
-	        () => sumTreeInner(tree.left, exceptions, (leftSum) =>
-				sumTreeInner(tree.right, exceptions, (rightSum) =>
-					k(leftSum + tree.contents + rightSum)));
+            () => sumTreeInner(tree.left, exceptions, (leftSum) =>
+                sumTreeInner(tree.right, exceptions, (rightSum) =>
+                    k(leftSum + tree.contents + rightSum)));
 
         // Go back to the stack where `throw1337` was defined. If the handler
         // there wants to resume execution, it will call `next`, and we'll
@@ -151,7 +151,10 @@ function sumTreeRec1337(tree: BinaryTree<number>): number {
         sum: number
     }
 
-    function sumTreeInner(tree: BinaryTree<number> | null, has25565Ancestor: boolean): RecursiveResult {
+    function sumTreeInner(
+        tree: BinaryTree<number> | null,
+        has25565Ancestor: boolean): RecursiveResult {
+
         if (!tree) return {
             tag: "Sum",
             sum: 0
@@ -165,7 +168,10 @@ function sumTreeRec1337(tree: BinaryTree<number>): number {
             tag: "Throwing1337"
         }
 
-        const leftResults = sumTreeInner(tree.left, has25565Ancestor || tree.contents === 25565);
+        const leftResults = sumTreeInner(
+            tree.left,
+            has25565Ancestor || tree.contents === 25565);
+
         if (leftResults.tag === "Exiting42") return leftResults;
         if (leftResults.tag === "Throwing1337" && tree.contents === 25565) return {
             tag: "Sum",
@@ -173,7 +179,10 @@ function sumTreeRec1337(tree: BinaryTree<number>): number {
         }
         if (leftResults.tag === "Throwing1337") return leftResults;
 
-        const rightResults = sumTreeInner(tree.right, has25565Ancestor || tree.contents === 25565);
+        const rightResults = sumTreeInner(
+            tree.right,
+            has25565Ancestor || tree.contents === 25565);
+
         if (rightResults.tag === "Exiting42") return rightResults;
         if (rightResults.tag === "Throwing1337" && tree.contents === 25565) return {
             tag: "Sum",

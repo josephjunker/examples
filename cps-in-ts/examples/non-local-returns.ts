@@ -85,6 +85,7 @@ function sumTreeIter42(tree: BinaryTree<number>): number {
     while (stack.length) {
         const node = stack.pop()!;
 
+        // This new line is the only change
         if (node.contents === 42) return 1000;
 
         total += node.contents;
