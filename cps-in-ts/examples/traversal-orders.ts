@@ -35,9 +35,9 @@ type BinaryTree<T> = {
 
 // begin-snippet: tree-helpers
 function tree<T>(
-	rootContents: T, 
-	left: BinaryTree<T> | null, 
-	right: BinaryTree<T> | null): BinaryTree<T> {
+    rootContents: T, 
+    left: BinaryTree<T> | null, 
+    right: BinaryTree<T> | null): BinaryTree<T> {
 	
     return {
         contents: rootContents,
