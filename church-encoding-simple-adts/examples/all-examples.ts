@@ -26,25 +26,25 @@ function adtDecodeBoolean(bool: ADTBoolean): boolean {
 // end-snippet
 
 // begin-snippet: church-boolean-definition
-type ChurchBoolean = <A>(choices: { tru: A, fals: A}) => A;
+type ChurchBoolean = <A>(choices: { tru: () => A, fals: () => A}) => A;
 
 function churchEncodeBoolean(bool: ADTBoolean): ChurchBoolean {
-    return bool.tag === "true" ? ({ tru, fals }) => tru
-    :                            ({ tru, fals }) => fals;
+    return bool.tag === "true" ? ({ tru, fals }) => tru()
+    :                            ({ tru, fals }) => fals();
 }
 // end-snippet
 
 // begin-snippet: church-boolean-functions
-const tru: ChurchBoolean = ({ tru, fals }) => tru;
-const fals: ChurchBoolean = ({ tru, fals }) => fals;
+const tru: ChurchBoolean = ({ tru, fals }) => tru();
+const fals: ChurchBoolean = ({ tru, fals }) => fals();
 
 function churchAnd(
     left: ChurchBoolean,
     right: ChurchBoolean): ChurchBoolean {
 
     return left({
-        tru: right,
-        fals
+        tru: () => right,
+        fals: () => fals
     })
 }
 
@@ -53,8 +53,8 @@ function churchOr(
     right: ChurchBoolean): ChurchBoolean {
 
     return left({
-      tru,
-      fals: right
+      tru: () => tru,
+      fals: () => right
     });
 }
 
@@ -64,23 +64,23 @@ const twoIsOdd = fals;
 
 // Using a Church boolean to create a string
 const message = churchAnd(oneIsOdd, twoIsOdd)({
-  tru: "both 1 and 2 are odd numbers",
-  fals: "at least one of 1 or 2 are not an odd number"
+  tru: () => "both 1 and 2 are odd numbers",
+  fals: () => "at least one of 1 or 2 are not an odd number"
 });
 
 // We can return other types from a Church Boolean as well
 const undefinedIfOneIsOdd: undefined | number = oneIsOdd({
-  tru: undefined,
-  fals: 1
+  tru: () => undefined,
+  fals: () => 1
 })
 
 // Show that we can turn our Church boolean back into an ADT
 // without losing information, which establishes that they are
 // equivalent.
 function churchDecodeBoolean(bool: ChurchBoolean): ADTBoolean {
-    return bool({
-        tru: { tag: "true" },
-        fals: { tag: "false" }
+    return bool<ADTBoolean>({
+        tru: () => ({ tag: "true" }),
+        fals: () => ({ tag: "false" })
     });
 }
 // end-snippet
@@ -173,8 +173,8 @@ type ChurchFailed = <A>(fn: (errorCode: number, errorMessage: string) => A) => A
 
 // begin-snippet: church-request-state-definition
 type ChurchRequestState = <A>(choices: {
-    notYetSent: A,
-    inProgress: A,
+    notYetSent: () => A,
+    inProgress: () => A,
     succeeded: (result: string) => A,
     failed: (errorCode: number, errorMessage: string) => A
 }) => A
@@ -186,17 +186,17 @@ function churchEncodeRequestState(
     ): ChurchRequestState {
 
     return function<A>(choices: {
-        notYetSent: A,
-        inProgress: A,
+        notYetSent: () => A,
+        inProgress: () => A,
         succeeded: (result: string) => A,
         failed: (errorCode: number, errorMessage: string) => A
     }): A {
         if (requestState.tag === "NotYetSent") {
-            return choices.notYetSent;
+            return choices.notYetSent();
         } 
 
         if (requestState.tag === "InProgress") {
-            return choices.inProgress;
+            return choices.inProgress();
         }
 
         if (requestState.tag === "Succeeded") {
@@ -213,8 +213,8 @@ function churchDecodeRequestState(
     churchRequestState: ChurchRequestState): RequestState {
 
     return churchRequestState<RequestState>({
-        notYetSent: { tag: "NotYetSent" },
-        inProgress: { tag: "InProgress" },
+        notYetSent: () => ({ tag: "NotYetSent" }),
+        inProgress: () => ({ tag: "InProgress" }),
         succeeded: result => ({
             tag: "Succeeded",
             result
@@ -247,8 +247,8 @@ if(adtRequestState.tag === "NotYetSent") {
 
 // Using a Church encoding
 const uiContents2 = churchRequestState({
-    notYetSent: "request pending...",
-    inProgress: "loading...",
+    notYetSent: () => "request pending...",
+    inProgress: () => "loading...",
     succeeded: result => result,
     failed: (code, msg) => `Recieved error ${code}: ${msg}` 
 })
@@ -256,8 +256,8 @@ const uiContents2 = churchRequestState({
 
 // begin-snippet: purist-church-request-state
 type PuristChurchRequestState =
-    <T>(handleNotYetSent: T) =>
-       (handleInProgress: T) =>
+    <T>(handleNotYetSent: () => T) =>
+       (handleInProgress: () => T) =>
        (handleSuccess: (result: string) => T) =>
        (handleError: (errorCode: number) => (errorMessage: string) => T) => T
 // end-snippet
