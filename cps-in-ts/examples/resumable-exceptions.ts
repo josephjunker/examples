@@ -60,14 +60,17 @@ function sumTreeCPS1337<K>(tree: BinaryTree<number>, kOuter: (n: number) => K): 
                 sumTreeInner(tree.right, exceptions, (rightSum) =>
                     k(leftSum + tree.contents + rightSum)));
 
-        // Go back to the stack where `throw1337` was defined. If the handler
-        // there wants to resume execution, it will call `next`, and we'll
-        // keep going with the same logic as though nothing had happened.
-        // If the handler there does *not* want to resume execution, then
-        // our current call stack (`k`) will be dropped and we'll switch to
-        // the call stack set up by throw1337.
-        if (tree.contents === 1337) return throw1337(next);
+        if (tree.contents === 1337) {
+            // Go back to the stack where `throw1337` was defined. If the handler
+            // there wants to resume execution, it will call `next`, and we'll
+            // keep going with the same logic as though nothing had happened.
+            // If the handler there does *not* want to resume execution, then
+            // our current call stack (`k`) will be dropped and we'll switch to
+            // the call stack set up by throw1337.
+            return throw1337(next);
+        }
 
+        // Nothing weird happened so we continue as normal
         return next();
     }
 
