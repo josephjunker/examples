@@ -18,6 +18,7 @@
   "author": "Joseph Junker",
   "license": "CC0-1.0",
   "devDependencies": {
+    "@types/node": "^25.3.5",
     "fast-check": "^4.3.0",
     "typescript": "^5.9.3",
     "uvu": "^0.5.6"
