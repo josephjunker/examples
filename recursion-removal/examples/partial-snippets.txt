@@ -37,8 +37,8 @@ function foldTree<S, T>(
 
 // begin-snippet: fold-tree-frame
 if (frame.tag === "FoldTreeFrame") {
-    // Block 1
     if (frame.tree.tag === "Empty") {
+        // Block 1
         frame.returnValue = { value: frame.accumulator };
         frame = frame.parent;
     } else {
