@@ -37,17 +37,20 @@ function foldTree<S, T>(
 
 // begin-snippet: fold-tree-frame
 if (frame.tag === "FoldTreeFrame") {
+    // Block 1
     if (frame.tree.tag === "Empty") {
         frame.returnValue = { value: frame.accumulator };
         frame = frame.parent;
     } else {
         if (frame.child?.returnValue) {
+            // Block 2
             frame.returnValue = {
                 value: frame.child.returnValue.value,
             };
             frame.child = null;
             frame = frame.parent;
         } else {
+            // Block 3
             const newAccumulator = fn(
                 frame.accumulator,
                 frame.tree.value,
