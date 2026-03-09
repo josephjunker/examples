@@ -5,7 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "tsc && node ./examples/all-examples.js"
+    "test": "uvu examples mts"
   },
   "repository": {
     "type": "git",
