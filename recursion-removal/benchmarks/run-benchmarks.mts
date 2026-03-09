@@ -33,12 +33,13 @@ async function singleBenchmark<T>(count: number, fn: () => T): Promise<number> {
     const stop = performance.now();
 
     // I want to make sure these results get collected and the loop as a whole
-    // doesn't get optimized away, and this is one way to do it
+    // doesn't get optimized away, and this seems like one way to do it
     writeFileSync("/dev/null", JSON.stringify(results));
 
     return stop - start;
 }
 
+// begin-snippet: functions-for-benchmark
 function sumIterative(): Array<number> {
     let result = new Array(trees.length);
     for (let i = 0; i < trees.length; i++) {
@@ -84,6 +85,7 @@ function collectRecursive(): Array<Array<number>> {
     }
     return result;
 }
+// end-snippet
 
 const REPS_PER_BENCHMARK = 10;
 const NUM_BENCHMARKS = 30;

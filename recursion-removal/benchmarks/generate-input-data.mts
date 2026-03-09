@@ -8,6 +8,7 @@ import {
     cons,
 } from "./forest-trees.mts";
 
+// begin-snippet: benchmark-data-generation
 function randomNat(): number {
     return Math.floor(Math.random() * 1000);
 }
@@ -38,6 +39,7 @@ export function generateData(): Array<Tree<number>> {
 
     return results;
 }
+// end-snippet
 
 console.log("Generating benchmark data");
 const testData = generateData();

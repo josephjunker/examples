@@ -1,0 +1,102 @@
+
+// begin-snippet: fold-tree-iterative-scaffold
+function foldIterative<S, T>(
+    accumulator: S,
+    tree: Tree<T>,
+    fn: (accumulator: S, value: T) => S,
+): S {
+    const caller: ExternalCaller<S, T> = externalCaller();
+
+    const topFrame = callFoldTree(accumulator, tree, fn, caller);
+    caller.topFrame = topFrame;
+
+    let frame: StackFrame<S, T> = topFrame;
+
+    while (frame.tag !== "ExternalCaller") {
+        if (frame.tag === "FoldTreeFrame") {
+            // Implementation for foldTree() goes here
+        } else if (frame.tag === "FoldForestFrame") {
+            // Implementation for foldForest() goes here
+        }
+    }
+
+    return frame.topFrame?.returnValue?.value!;
+}
+// end-snippet
+
+// begin-snippet: fold-tree
+function foldTree<S, T>(
+    accumulator: S,
+    tree: Tree<T>,
+    fn: (accumulator: S, value: T) => S,
+): S {
+    if (tree.tag === "Empty") return accumulator;
+    return foldForest(fn(accumulator, tree.value), tree.forest, fn);
+}
+// end-snippet
+
+// begin-snippet: fold-tree-frame
+if (frame.tag === "FoldTreeFrame") {
+    if (frame.tree.tag === "Empty") {
+        frame.returnValue = { value: frame.accumulator };
+        frame = frame.parent;
+    } else {
+        if (frame.child?.returnValue) {
+            frame.returnValue = {
+                value: frame.child.returnValue.value,
+            };
+            frame.child = null;
+            frame = frame.parent;
+        } else {
+            const newAccumulator = fn(
+                frame.accumulator,
+                frame.tree.value,
+            );
+            frame.child = callFoldForest(
+                newAccumulator,
+                frame.tree.forest,
+                frame.fn,
+                frame,
+            );
+
+            frame = frame.child;
+        }
+    }
+}
+// end-snippet
+
+// begin-snippet: fold-forest-frame
+if (frame.tag === "FoldForestFrame") {
+    if (frame.forest.tag === "Nil") {
+        frame.returnValue = { value: frame.accumulator };
+        frame = frame.parent;
+    } else {
+        if (frame.forestChild?.returnValue) {
+            frame.returnValue = {
+                value: frame.forestChild.returnValue.value,
+            };
+            frame.treeChild = null;
+            frame.forestChild = null;
+            frame = frame.parent;
+        } else if (frame.treeChild?.returnValue) {
+            frame.forestChild = callFoldForest(
+                frame.treeChild.returnValue.value,
+                frame.forest.tail,
+                frame.fn,
+                frame,
+            );
+
+            frame = frame.forestChild;
+        } else {
+            frame.treeChild = callFoldTree(
+                frame.accumulator,
+                frame.forest.head,
+                frame.fn,
+                frame,
+            );
+
+            frame = frame.treeChild;
+        }
+    }
+}
+// end-snippet

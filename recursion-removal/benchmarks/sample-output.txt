@@ -1,0 +1,38 @@
+// begin-snippet: benchmark-results
+Iterative sum results:
+----------------------
+minimum:         1267.5
+maximum:         1286.5
+mean:            1276.4
+median:          1276.0
+std. deviation:  4.66
+
+Recursive sum results:
+----------------------
+minimum:         557.3
+maximum:         582.2
+mean:            566.9
+median:          565.0
+std. deviation:  6.9
+
+Iteration is 2.25x slower than recursion
+
+
+Iterative collection results:
+-----------------------------
+minimum:         1377.3
+maximum:         1402.1
+mean:            1391.0
+median:          1391.8
+std. deviation:  5.42
+
+Recursive collection results:
+-----------------------------
+minimum:         651.4
+maximum:         666.1
+mean:            657.9
+median:          656.2
+std. deviation:  4.45
+
+Iteration is 2.12x slower than recursion
+// end-snippet
